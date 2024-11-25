@@ -20,14 +20,14 @@ func TestMainHandlerWhenCountMoreThanTotal(t *testing.T) {
 	// здесь нужно добавить необходимые проверки
 
 	if status := responseRecorder.Code; status != http.StatusOK {
-		t.Fatalf("expected status code: %d, got %d", http.StatusOK, status)
+		assert.Equal(t, http.StatusOK, status)
 	}
 
 	body := responseRecorder.Body.String()
 	list := strings.Split(body, ",")
 
 	if len(list) != totalCount {
-		assert.Len(t, len(list), totalCount)
+		assert.Equal(t, totalCount, strings.Count(responseRecorder.Body.String(), ",")+1)
 	}
 }
 
